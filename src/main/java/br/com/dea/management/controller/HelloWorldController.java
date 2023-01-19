@@ -1,4 +1,4 @@
-package br.com.dea.management.management.controller;
+package br.com.dea.management.controller;
 
 
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,8 @@ public class HelloWorldController {
 
     @RequestMapping(value = "/Hello-World/", method = RequestMethod.GET)
     public ResponseEntity<String> getFactory() {
-        return ResponseEntity.ok( "helloworld");
+
+        return ResponseEntity.ok( "helloworld 2023");
     }
 }
 
