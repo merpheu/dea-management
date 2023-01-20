@@ -24,8 +24,10 @@ public class UserService {
         return user.orElseThrow(() -> new NotFoundException(User.class, email));
     }
 
-    public User findUserById(String id){
-        Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new NotFoundException(User.class, id));
+    public User findUserByPwd(String password){
+        Optional<User> user = this.userRepository.findByPassword(password);
+        return user.orElseThrow(() -> new NotFoundException(User.class, password));
     }
+
+
 }

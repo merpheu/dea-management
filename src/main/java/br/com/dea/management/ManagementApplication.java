@@ -43,23 +43,37 @@ public class ManagementApplication implements CommandLineRunner {
 		}
 
 		List<User> users = this.userService.findAllUsers();
-		users.forEach(user -> System.out.println("Name 1 " + user.getName()));
+		users.forEach(user -> System.out.println("Name  " + user.getName()));
 
 		Optional<User> loadedByuserName = this.userRepository.findByName("name 1");
 		System.out.println("User name 1 (From @Query) name:" + loadedByuserName.get().getName());
+
+		Optional<User> lkd = this.userRepository.findByLinkedin("linkedin 4");
+		System.out.println("User (From @Query linkedin:"+ lkd.get().getLinkedin());
 
 		TypedQuery<User> q = entityManager.createNamedQuery("myQuery", User.class);
 		q.setParameter("name", "name 2");
 		User userFromNamedQuery = q.getResultList().get(0);
 		System.out.println("User name 2 (From NamedQuery) name: " + userFromNamedQuery.getName());
 
+//		TypedQuery<User> x = entityManager.createNamedQuery("myQuery1", User.class);
+//		x.setParameter("name", "name 2");
+//		User userFromNamedQuery1 = x.getResultList().get(0);
+//		System.out.println("User id (From NamedQuery) id: " + userFromNamedQuery1.getId());
+
 		//Loading user by email
 		User loadedUser = this.userService.findUserByEmail("email 1");
 		System.out.println("User email 1 name: " + loadedUser.getName());
 
+         //Loading user by pwd
+		 User loadedPwd = this.userService.findUserByPwd("pwd 4");
+		 System.out.println("User password 4 name:" + loadedPwd.getName());
+
+
 		//Updating user name 1 linkedin
 		loadedUser.setLinkedin("new linkedin");
 		this.userRepository.save(loadedUser);
+
 		}
 	}
 

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
 @NamedQuery(name = "myQuery", query = "SELECT u FROM User u where u.name= :name") //named query
+@NamedQuery(name = "myQuery1", query = "SELECT i FROM User i where i.id= :id") //named query
 public class User {
 
     @Id
