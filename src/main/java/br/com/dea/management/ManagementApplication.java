@@ -56,10 +56,10 @@ public class ManagementApplication implements CommandLineRunner {
 		User userFromNamedQuery = q.getResultList().get(0);
 		System.out.println("User name 2 (From NamedQuery) name: " + userFromNamedQuery.getName());
 
-//		TypedQuery<User> x = entityManager.createNamedQuery("myQuery1", User.class);
-//		x.setParameter("name", "name 2");
-//		User userFromNamedQuery1 = x.getResultList().get(0);
-//		System.out.println("User id (From NamedQuery) id: " + userFromNamedQuery1.getId());
+		TypedQuery<User> x = entityManager.createNamedQuery("myQuery1", User.class);
+		x.setParameter("password", "pwd 4");
+		User userFromNamedQuery1 = x.getResultList().get(0);
+		System.out.println("User password (From NamedQuery1) password: " + userFromNamedQuery1.getPassword());
 
 		//Loading user by email
 		User loadedUser = this.userService.findUserByEmail("email 1");
