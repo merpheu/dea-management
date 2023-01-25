@@ -2,6 +2,7 @@ package br.com.dea.management.student.service;
 
 import br.com.dea.management.student.domain.Student;
 import br.com.dea.management.student.repository.StudentRepository;
+import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,10 @@ public class StudentService {
     private StudentRepository studentrepository;
 
     public List<Student> findAllStudents(){return this.studentrepository.findAll();}
+
+    public Student findStudentById(Long id){
+        return this.studentrepository.findById(id).get();
+    }
 
     public Page<Student> findAllStudentsPaginated(Integer page, Integer pageSize) {
         return this.studentrepository.findAllPaginated(PageRequest.of(page, pageSize));

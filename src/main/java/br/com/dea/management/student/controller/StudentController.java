@@ -19,6 +19,11 @@ public class StudentController {
         return this.studentService.findAllStudents();
     }
 
+    @GetMapping("/students/{id}")
+    public Student findStudentById(@PathVariable("id") Long id){
+        return studentService.findStudentById(id);
+    }
+
     @RequestMapping(value = "/student/without-pagination", method = RequestMethod.GET)
     public List<StudentDto> getStudentsWithOutPagination() {
         List<Student> students = this.studentService.findAllStudents();

@@ -14,4 +14,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
    @Query("SELECT s FROM Student s")
    public Page<Student> findAllPaginated(Pageable pageable);
+
+
+
 }
