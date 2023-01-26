@@ -32,8 +32,8 @@ public class StudentController {
 
     @GetMapping("/student")
     public Page<StudentDto> getStudents(@RequestParam Integer page,
-                                        @RequestParam Integer pageSize,
-                                        @RequestParam String name) {
+                                        @RequestParam Integer pageSize)
+                                       {
 
         Page<Student> studentsPaged = this.studentService.findAllStudentsPaginated(page, pageSize);
         Page<StudentDto> students = studentsPaged.map(student -> StudentDto.fromStudent(student));
