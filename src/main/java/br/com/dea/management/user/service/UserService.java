@@ -22,12 +22,13 @@ public class UserService {
     public List<User> findAllUsers() {
         return this.userRepository.findAll();
     }
-    public User findUserByEmail(String email){
+
+    public User findUserByEmail(String email) {
         Optional<User> user = this.userRepository.findByEmail(email);
         return user.orElseThrow(() -> new NotFoundException(User.class, email));
     }
 
-    public User findUserByPwd(String password){
+    public User findUserByPwd(String password) {
         Optional<User> user = this.userRepository.findByPassword(password);
         return user.orElseThrow(() -> new NotFoundException(User.class, password));
     }
@@ -35,4 +36,6 @@ public class UserService {
     public Page<User> findAllUsersPaginated(Integer page, Integer pageSize) {
         return this.userRepository.findAllUsersPaginated(PageRequest.of(page, pageSize));
     }
+
+
 }

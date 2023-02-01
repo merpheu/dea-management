@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("SELECT u FROM User u")
     public Page<User> findAllUsersPaginated(Pageable pageable);
 
+
+
 }

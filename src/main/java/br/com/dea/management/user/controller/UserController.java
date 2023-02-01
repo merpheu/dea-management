@@ -17,13 +17,9 @@ public class UserController {
  @Autowired
     UserService userService;
 
- @Autowired
-    StudentService studentService;
-
     @GetMapping("/user")
     public Page<UserDto> getUser(@RequestParam Integer page,
                                  @RequestParam Integer pageSize){
-
 
        Page<User> userPaged = this.userService.findAllUsersPaginated(page, pageSize);
        Page<UserDto> users = userPaged.map(user -> UserDto.fromUser(user));
