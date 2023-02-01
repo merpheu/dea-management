@@ -2,10 +2,16 @@ package br.com.dea.management.student.domain;
 
 import br.com.dea.management.user.domain.User;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
 
     @Id
@@ -25,45 +31,5 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUniversity() {
-        return university;
-    }
-
-    public void setUniversity(String university) {
-        this.university = university;
-    }
-
-    public String getGraduation() {
-        return graduation;
-    }
-
-    public void setGraduation(String graduation) {
-        this.graduation = graduation;
-    }
-
-    public LocalDate getFinishDate() {
-        return FinishDate;
-    }
-
-    public void setFinishDate(LocalDate finishDate) {
-        FinishDate = finishDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 }
