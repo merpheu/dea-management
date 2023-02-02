@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +31,14 @@ public class UserController {
          Page<UserDto> users = userPaged.map(user -> UserDto.fromUser(user));
          log.info(String.format("users loaded successfully : Students : %s : pageSize", users.getContent()));
        return users;
+    }
+
+    @GetMapping("user/{id}")
+    public UserDto findById (@PathVariable Long id){
+        log.info(String.format("Fetching student by id : Id : %s", id));
+        UserDto user = UserDto.fromUser(this.userService.findUserById(id));
+        log.info(String.format("user loaded successfully : User : %s", id));
+        return user;
+
     }
 }

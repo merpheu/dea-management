@@ -2,7 +2,6 @@ package br.com.dea.management.user.service;
 
 
 import br.com.dea.management.exceptions.NotFoundException;
-import br.com.dea.management.student.domain.Student;
 import br.com.dea.management.user.domain.User;
 import br.com.dea.management.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +33,9 @@ public class UserService {
 
     public Page<User> findAllUsersPaginated(Integer page, Integer pageSize) {
         return this.userRepository.findAllUsersPaginated(PageRequest.of(page, pageSize));
+    }
+
+    public User findUserById(Long id){
+        return this.userRepository.findById(id).orElseThrow(() -> new NotFoundException(User.class, id));
     }
 }
