@@ -20,9 +20,6 @@ public class UserController {
  @Autowired
     UserService userService;
 
- @Autowired
-    StudentService studentService;
-
     @GetMapping("/user")
     public Page<UserDto> getUser(@RequestParam Integer page,
                                  @RequestParam Integer pageSize){
