@@ -34,6 +34,7 @@ public class StudentDto {
 
     public static StudentDto fromStudent(Student student) {
         StudentDto studentDto = new StudentDto();
+        studentDto.setId(student.getUser().getId());
         studentDto.setName(student.getUser().getName());
         studentDto.setEmail(student.getUser().getEmail());
         studentDto.setLinkedin(student.getUser().getLinkedin());

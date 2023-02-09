@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,6 @@ public class StudentService {
     }
 
     public Page<Student> findAllStudentsPaginated(Integer page, Integer pageSize) {
-        return this.studentrepository.findAllPaginated(PageRequest.of(page, pageSize));
+        return this.studentrepository.findAllPaginated(PageRequest.of(page, pageSize, Sort.by("user.name").ascending()));
     }
 }

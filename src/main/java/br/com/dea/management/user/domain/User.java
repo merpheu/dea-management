@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "dea_user")
 @NamedQuery(name = "myQuery", query = "SELECT u FROM User u where u.name= :name") //named query
 @NamedQuery(name = "myQuery1", query = "SELECT p FROM User p where p.password= :password") //named query
 public class User {

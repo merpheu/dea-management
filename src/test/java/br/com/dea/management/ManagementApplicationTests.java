@@ -1,4 +1,4 @@
-package br.com.dea.management.management;
+package br.com.dea.management;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

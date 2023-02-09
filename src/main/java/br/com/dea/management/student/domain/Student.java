@@ -26,7 +26,7 @@ public class Student {
     private String graduation;
 
     @Column
-    private LocalDate FinishDate;
+    private LocalDate finishDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
