@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
     @AutoConfigureMockMvc
-    @ActiveProfiles("local")
+    @ActiveProfiles("test")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @Slf4j
     public class UserGetByIdTests {

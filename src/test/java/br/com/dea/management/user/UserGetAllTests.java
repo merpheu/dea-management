@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("local")
+@ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Slf4j
 public class UserGetAllTests {
@@ -65,7 +65,6 @@ public class UserGetAllTests {
                 .andExpect(jsonPath("$.content[3].email", is("email 3")))
                 .andExpect(jsonPath("$.content[3].linkedin", is("linkedin 3")));
     }
-
     @Test
     void whenRequestingUserListAndPageQueryParamIsInvalid_thenReturnBadRequestError() throws Exception {
         mockMvc.perform(get("/user?page=xx&pageSize=4"))
@@ -85,6 +84,21 @@ public class UserGetAllTests {
                 .andExpect(jsonPath("$.details").isArray())
                 .andExpect(jsonPath("$.details", hasSize(1)));
     }
+
+
+//   private void createFakeUser(int amount){
+//        for(int i =0; i<amount; i++){
+//            User user = User.builder()
+//                    .email("email"+i)
+//                    .name("name"+i)
+//                    .linkedin("linkedin " + i)
+//                    .password("pwd " + i).build();
+//
+//                    this.userRepository.save(user);
+//        }
+//
+//   }
+
 
     private void createFakeStudents(int amount) {
         for (int i = 0; i < amount; i++) {
