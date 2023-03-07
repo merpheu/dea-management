@@ -45,7 +45,7 @@ class StudentUpdateSuccessCaseTests {
 
         String payload = "{" +
                 "\"name\": \"name\"," +
-                "\"email\": \"email\"," +
+                "\"email\": \"email@eu.com\"," +
                 "\"linkedin\": \"linkedin\"," +
                 "\"university\": \"university\"," +
                 "\"graduation\": \"graduation\"," +
@@ -59,8 +59,9 @@ class StudentUpdateSuccessCaseTests {
         Student student = this.studentRepository.findAll().get(0);
 
         assertThat(student.getUser().getName()).isEqualTo("name");
-        assertThat(student.getUser().getEmail()).isEqualTo("email");
+        assertThat(student.getUser().getEmail()).isEqualTo("email@eu.com");
         assertThat(student.getUser().getLinkedin()).isEqualTo("linkedin");
+        assertThat(student.getUser().getLinkedin()).isNotEmpty();
         assertThat(student.getUser().getPassword()).isEqualTo("password");
         assertThat(student.getGraduation()).isEqualTo("graduation");
         assertThat(student.getUniversity()).isEqualTo("university");

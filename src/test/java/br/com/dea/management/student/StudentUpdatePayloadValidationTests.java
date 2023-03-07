@@ -43,7 +43,7 @@ class StudentUpdatePayloadValidationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.details").isArray())
-                .andExpect(jsonPath("$.details", hasSize(3)))
+                .andExpect(jsonPath("$.details", hasSize(4)))
                 .andExpect(jsonPath("$.details[*].field", hasItem("name")))
                 .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Name could not be null")))
                 .andExpect(jsonPath("$.details[*].field", hasItem("email")))
@@ -58,7 +58,7 @@ class StudentUpdatePayloadValidationTests {
 
         String payload = "{" +
                 "\"name\": \"name\"," +
-                "\"email\": \"email\"," +
+                "\"email\": \"email@eu.com\"," +
                 "\"linkedin\": \"linkedin\"," +
                 "\"university\": \"university\"," +
                 "\"graduation\": \"graduation\"," +
