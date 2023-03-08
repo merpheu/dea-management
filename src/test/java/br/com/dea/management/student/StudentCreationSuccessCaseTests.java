@@ -82,12 +82,16 @@ class StudentCreationSuccessCaseTests {
         Student student = this.studentRepository.findAll().get(0);
 
         assertThat(student.getUser().getName()).isEqualTo("name");
+        assertThat(student.getUser().getName()).isNotEmpty();
         assertThat(student.getUser().getEmail()).isEqualTo("email@eu.com");
+        assertThat(student.getUser().getEmail()).isNotEmpty();
         assertThat(student.getUser().getLinkedin()).isEqualTo("linkedin");
         assertThat(student.getUser().getLinkedin()).isNotEmpty();
         assertThat(student.getUser().getPassword()).isEqualTo("password");
         assertThat(student.getGraduation()).isEqualTo("graduation");
+        assertThat(student.getGraduation()).isNotEmpty();
         assertThat(student.getUniversity()).isEqualTo("university");
+        assertThat(student.getUniversity()).isNotEmpty();
 
     }
 }
