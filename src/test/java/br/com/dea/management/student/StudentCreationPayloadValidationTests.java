@@ -45,11 +45,8 @@ class StudentCreationPayloadValidationTests {
                 .andExpect(jsonPath("$.details[*].field", hasItem("email")))
                 .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Email could not be null")))
                 .andExpect(jsonPath("$.details[*].field", hasItem("password")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Password could not be null")));
-//                .andExpect(jsonPath("$.details[*].field", hasItem("Linkedin")));
-//        java.lang.AssertionError: JSON path "$.details[*].field"
-//        Expected: a collection containing "Linkedin"
-//        but: mismatches were: [was "name", was "email", was "password", was "linkedin"]
-
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Password could not be null")))
+                .andExpect(jsonPath("$.details[*].field", hasItem("linkedin")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem( "Linkedin must not be empty")));
     }
 }
