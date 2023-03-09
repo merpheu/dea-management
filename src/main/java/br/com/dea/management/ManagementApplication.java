@@ -1,5 +1,10 @@
 package br.com.dea.management;
 
+import br.com.dea.management.employee.EmployeeType;
+import br.com.dea.management.employee.domain.Employee;
+import br.com.dea.management.employee.repository.EmployeeRepository;
+import br.com.dea.management.position.domain.Position;
+import br.com.dea.management.position.repository.PositionRepository;
 import br.com.dea.management.student.domain.Student;
 import br.com.dea.management.student.repository.StudentRepository;
 import br.com.dea.management.user.domain.User;
@@ -40,13 +45,19 @@ public class ManagementApplication implements CommandLineRunner {
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
+	@Autowired
+	private PositionRepository positionRepository;
+
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public void run(String... args) throws Exception{
-		this.userRepository.deleteAll();
+	//	this.userRepository.deleteAll();
 		//Creating some students
 		for (int i = 0; i < 100; i++) {
 			User u = new User();
@@ -63,7 +74,7 @@ public class ManagementApplication implements CommandLineRunner {
 					.build();
 
 			this.studentRepository.save(student);
-		}
 
-	}
+		}
+		}
 }
