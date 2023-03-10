@@ -17,11 +17,23 @@ import java.time.LocalDate;
 @ToString
 public class CreateEmployeeDto {
 
-    @NotNull(message = "description could not be null")
+    private String name;
+
+    @NotNull(message = "Email could not be null")
+    @Email(message = "Email must be valid")
+    private String email;
+
+    @NotEmpty(message = "Linkedin must not be empty")
+    private String linkedin;
+
+    private String password;
+
     private String description;
 
     private String seniority;
 
     private EmployeeType employeeType;
+
+    private Long positionID;
 
 }

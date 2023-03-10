@@ -6,6 +6,7 @@ import br.com.dea.management.employee.dto.UpdateEmployeeDto;
 import br.com.dea.management.employee.repository.EmployeeRepository;
 import br.com.dea.management.exceptions.NotFoundException;
 import br.com.dea.management.position.domain.Position;
+import br.com.dea.management.position.repository.PositionRepository;
 import br.com.dea.management.student.domain.Student;
 import br.com.dea.management.student.dto.CreateStudentRequestDto;
 import br.com.dea.management.student.dto.UpdateStudentRequestDto;
@@ -23,6 +24,10 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private PositionRepository positionRepository;
+
 
     public List<Employee> findAllEmployees() {
         return this.employeeRepository.findAll();
@@ -42,15 +47,20 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(CreateEmployeeDto createEmployeeDto) {
-        Position position = Position.builder()
-                .description(createEmployeeDto.getDescription())
-                .seniority(createEmployeeDto.getSeniority())
+          Position position = this.positionRepository.findById(createEmployeeDto.getPositionID()).get();
+          User user = User.builder()
+                .email(createEmployeeDto.getEmail())
+                .name(createEmployeeDto.getName())
+                .linkedin(createEmployeeDto.getLinkedin())
+                .password(createEmployeeDto.getPassword())
                 .build();
 
         Employee employee = Employee.builder()
                 .position(position)
+                .user(user)
                 .employeeType(createEmployeeDto.getEmployeeType())
                 .build();
+
         return this.employeeRepository.save(employee);
     }
 
@@ -58,10 +68,11 @@ public class EmployeeService {
     public Employee updateEmployee(Long employeeId, UpdateEmployeeDto updateEmployeeDto) {
         Employee employee = this.findEmployeeById(employeeId);
         Position position = employee.getPosition();
+        User user = employee.getUser();
 
+        employee.setUser(user);
         employee.setEmployeeType(updateEmployeeDto.getEmployeeType());
         employee.setPosition(position);
-
         position.setDescription(updateEmployeeDto.getDescription());
         position.setSeniority(updateEmployeeDto.getSeniority());
 

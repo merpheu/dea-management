@@ -26,7 +26,7 @@ import java.time.LocalDate;
 @OpenAPIDefinition(
 		info = @Info(title = "Dea Management", version = "1.0", description = "Dea Management API Description"),
 		servers = {
-				@Server(url = "http://localhost:8082${server.servlet.contextPath}", description = "Local environment URL"),
+				@Server(url = "http://localhost:8081${server.servlet.contextPath}", description = "Local environment URL"),
 				@Server(url = "https://dea-management.com.br${server.servlet.contextPath}", description = "Development environment URL")
 		}
 )
@@ -73,7 +73,7 @@ public class ManagementApplication implements CommandLineRunner {
 					.user(u)
 					.build();
 
-			this.studentRepository.save(student);
+		//	this.studentRepository.save(student);
 
 		}
 		}

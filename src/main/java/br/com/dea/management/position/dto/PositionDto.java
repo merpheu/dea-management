@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class PositionDto {
 
-    private  Long id;
+    private Long id;
     private String description;
     private String seniority;
 
