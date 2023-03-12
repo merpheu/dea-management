@@ -98,7 +98,7 @@ public class EmployeeController {
 
         Employee employee = employeeService.createEmployee(createEmployeeDto);
 
-        log.info(String.format("employee created successfully : id : %s", employee.getId()));
+        log.info(String.format("Employee created successfully : id : %s", employee.getId()));
     }
     @Operation(summary = "Update a employee")
     @ApiResponses(value = {
@@ -113,7 +113,7 @@ public class EmployeeController {
 
         Employee employee = employeeService.updateEmployee(employeeId, updateEmployeeDto);
 
-        log.info(String.format("Enmployee updated successfully : id : %s", employee.getId()));
+        log.info(String.format("Employee updated successfully : id : %s", employee.getId()));
     }
 
 

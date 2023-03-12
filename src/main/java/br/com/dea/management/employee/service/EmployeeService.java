@@ -47,8 +47,8 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(CreateEmployeeDto createEmployeeDto) {
-          Position position = this.positionRepository.findById(createEmployeeDto.getPositionID()).get();
-          User user = User.builder()
+        Position position = this.positionRepository.findById(createEmployeeDto.getPositionID()).get();
+        User user = User.builder()
                 .email(createEmployeeDto.getEmail())
                 .name(createEmployeeDto.getName())
                 .linkedin(createEmployeeDto.getLinkedin())
@@ -63,6 +63,7 @@ public class EmployeeService {
 
         return this.employeeRepository.save(employee);
     }
+
 
 
     public Employee updateEmployee(Long employeeId, UpdateEmployeeDto updateEmployeeDto) {
