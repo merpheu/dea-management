@@ -28,12 +28,8 @@ public class CreateEmployeeDto {
 
     private String password;
 
-    private String description;
-
-    private String seniority;
-
     private EmployeeType employeeType;
 
-    private Long positionID;
+    private Long position;
 
 }

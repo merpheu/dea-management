@@ -47,37 +47,45 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(CreateEmployeeDto createEmployeeDto) {
-        Position position = this.positionRepository.findById(createEmployeeDto.getPositionID()).get();
+        Position position = this.positionRepository.findById(createEmployeeDto.getPosition())
+                .orElseThrow(() -> new NotFoundException(Position.class, createEmployeeDto.getPosition()));
+
         User user = User.builder()
-                .email(createEmployeeDto.getEmail())
                 .name(createEmployeeDto.getName())
-                .linkedin(createEmployeeDto.getLinkedin())
+                .email(createEmployeeDto.getEmail())
                 .password(createEmployeeDto.getPassword())
+                .linkedin(createEmployeeDto.getLinkedin())
                 .build();
 
         Employee employee = Employee.builder()
-                .position(position)
                 .user(user)
                 .employeeType(createEmployeeDto.getEmployeeType())
+                .position(position)
                 .build();
 
         return this.employeeRepository.save(employee);
     }
 
-
-
     public Employee updateEmployee(Long employeeId, UpdateEmployeeDto updateEmployeeDto) {
         Employee employee = this.findEmployeeById(employeeId);
-        Position position = employee.getPosition();
+        Position position = this.positionRepository.findById(updateEmployeeDto.getPosition())
+                .orElseThrow(() -> new NotFoundException(Position.class, updateEmployeeDto.getPosition()));
+
         User user = employee.getUser();
+
+        user.setName(updateEmployeeDto.getName());
+        user.setEmail(updateEmployeeDto.getEmail());
+        user.setPassword(updateEmployeeDto.getPassword());
+        user.setLinkedin(updateEmployeeDto.getLinkedin());
 
         employee.setUser(user);
         employee.setEmployeeType(updateEmployeeDto.getEmployeeType());
         employee.setPosition(position);
-        position.setDescription(updateEmployeeDto.getDescription());
-        position.setSeniority(updateEmployeeDto.getSeniority());
+
 
         return this.employeeRepository.save(employee);
     }
+
+
 
 }

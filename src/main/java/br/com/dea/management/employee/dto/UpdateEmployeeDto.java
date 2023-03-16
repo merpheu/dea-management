@@ -14,11 +14,6 @@ import lombok.*;
 @ToString
 public class UpdateEmployeeDto {
 
-    @NotNull(message = "description could not be null")
-    private String description;
-
-    private String seniority;
-
     private EmployeeType employeeType;
 
     private String name;
@@ -31,6 +26,6 @@ public class UpdateEmployeeDto {
     private String linkedin;
 
     private String password;
-
+    private Long position;
 
 }

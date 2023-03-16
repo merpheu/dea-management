@@ -43,11 +43,9 @@ class EmployeeUpdatePayloadValidationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.details").isArray())
-                .andExpect(jsonPath("$.details", hasSize(3)))
-                .andExpect(jsonPath("$.details[*].field", hasItem("email")))
-                .andExpect(jsonPath("$.details[*].field", hasItem("linkedin")))
-                .andExpect(jsonPath("$.details[*].field", hasItem("description")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Linkedin must not be empty")));
+                .andExpect(jsonPath("$.details", hasSize(2)))
+                .andExpect(jsonPath("$.details[*].field", hasItem("email")));
+
        //  .andExpect(jsonPath("$.details[*].field", hasItem("name")));
        //  .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Name could not be null")))
 

@@ -38,7 +38,9 @@ class EmployeeCreationPayloadValidationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
                 .andExpect(jsonPath("$.details").isArray())
-                .andExpect(jsonPath("$.details", hasSize(2)));
+                .andExpect(jsonPath("$.details", hasSize(2)))
+                .andExpect(jsonPath("$.details[*].field", hasItem("email")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Email could not be null")));
 
     }
 }

@@ -1,9 +1,9 @@
 package br.com.dea.management.employee;
 
+import br.com.dea.management.EmployeeTestUtils;
 import br.com.dea.management.employee.domain.Employee;
 import br.com.dea.management.employee.repository.EmployeeRepository;
-import br.com.dea.management.student.domain.Student;
-import br.com.dea.management.student.repository.StudentRepository;
+import br.com.dea.management.position.domain.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,7 @@ class EmployeeCreationSuccessCaseTests {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    private EmployeeTestUtils employeeTestUtils;
 
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
@@ -38,33 +39,28 @@ class EmployeeCreationSuccessCaseTests {
     @Test
     void whenRequestingEmployeeCreationWithAValidPayload_thenCreateAEmployeeSuccessfully() throws Exception {
         this.employeeRepository.deleteAll();
+        Position position = employeeTestUtils.createFakePosition("Dev", "Pleno");
 
-                String payload = "{" +
-                         "\"name\": \"name\"," +
-                         "\"email\": \"email@eu.com\"," +
-                         "\"linkedin\": \"linkedin\"," +
-                         "\"password\": \"password\"," +
-                         "\"description\": \"Seniority level\"," +
-                         "\"seniority\": \"Senior\"," +
-                         "\"employeeType\": \"DTL\"," +
-                         "\"positionID\": \"6\" " +
+        String payload = "{" +
+                "\"name\": \"name\"," +
+                "\"email\": \"email\"," +
+                "\"linkedin\": \"linkedin\"," +
+                "\"employeeType\": \"DEVELOPER\"," +
+                "\"password\": \"password\"," +
+                "\"position\": " + position.getId() +
                 "}";
         mockMvc.perform(post("/employee")
-                        .contentType(APPLICATION_JSON_UTF8).content(payload)).andExpect(status().isOk());
+                        .contentType(APPLICATION_JSON_UTF8).content(payload))
+                .andExpect(status().isOk());
 
         Employee employee = this.employeeRepository.findAll().get(0);
 
-        assertThat(employee.getUser().getName()).contains("name");
-        assertThat(employee.getUser().getName()).isNotEmpty();
-        assertThat(employee.getUser().getEmail()).isEqualTo("email@eu.com");
-        assertThat(employee.getUser().getEmail()).isNotEmpty();
+        assertThat(employee.getUser().getName()).isEqualTo("name");
+        assertThat(employee.getUser().getEmail()).isEqualTo("email");
         assertThat(employee.getUser().getLinkedin()).isEqualTo("linkedin");
         assertThat(employee.getUser().getPassword()).isEqualTo("password");
-        assertThat(employee.getPosition().getSeniority()).isEqualTo("Senior");
-        assertThat(employee.getPosition().getId()).isEqualTo(6);
-        assertThat(employee.getPosition().getDescription()).isEqualTo("Seniority level");
-        assertThat(employee.getEmployeeType()).isEqualTo("DTL");
+        assertThat(employee.getEmployeeType()).isEqualTo(EmployeeType.DEVELOPER);
+        assertThat(employee.getPosition().getId()).isEqualTo(position.getId());
 
     }
-
 }

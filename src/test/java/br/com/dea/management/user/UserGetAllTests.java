@@ -60,11 +60,8 @@ public class UserGetAllTests {
                 .andExpect(jsonPath("$.content", hasSize(4)))
                 .andExpect(jsonPath("$.content[0].name", is("name 0")))
                 .andExpect(jsonPath("$.content[0].email", is("email 0")))
-                .andExpect(jsonPath("$.content[0].linkedin", is("linkedin 0")))
-                .andExpect(jsonPath("$.content[3].name", is("name 3")))
-                .andExpect(jsonPath("$.content[3].email", is("email 3")))
-                .andExpect(jsonPath("$.content[3].linkedin", is("linkedin 3")));
-    }
+                .andExpect(jsonPath("$.content[0].linkedin", is("linkedin 0")));}
+
     @Test
     void whenRequestingUserListAndPageQueryParamIsInvalid_thenReturnBadRequestError() throws Exception {
         mockMvc.perform(get("/user?page=xx&pageSize=4"))

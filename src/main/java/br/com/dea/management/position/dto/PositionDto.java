@@ -19,20 +19,4 @@ public class PositionDto {
     private String description;
     private String seniority;
 
-    public static List<PositionDto> fromPositions(List<Position> positions) {
-        return positions.stream().map(position -> {
-            PositionDto positionDto = PositionDto.fromPosition(position);
-            return positionDto;
-        }).collect(Collectors.toList());
-    }
-
-
-    public static PositionDto fromPosition(Position position) {
-        PositionDto positionDto = new PositionDto();
-        positionDto.setDescription(position.getDescription());
-        positionDto.setSeniority(positionDto.getSeniority());
-        return positionDto;
-    }
-
-
 }
