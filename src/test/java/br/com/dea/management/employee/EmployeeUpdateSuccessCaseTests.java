@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+
 class EmployeeUpdateSuccessCaseTests {
 
     @Autowired
@@ -55,7 +56,7 @@ class EmployeeUpdateSuccessCaseTests {
                 "\"linkedin\": \"linkedin\"," +
                 "\"employeeType\": \"DEVELOPER\"," +
                 "\"position\": " + position.getId() + "," +
-                "\"password\": \"password\"," +
+                "\"password\": \"password\"" +
                 "}";
         mockMvc.perform(put("/employee/" + employeebase.getId())
                         .contentType(APPLICATION_JSON_UTF8).content(payload))
