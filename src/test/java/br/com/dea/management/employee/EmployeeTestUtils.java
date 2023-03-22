@@ -1,4 +1,4 @@
-package br.com.dea.management;
+package br.com.dea.management.employee;
 
 import br.com.dea.management.employee.EmployeeType;
 import br.com.dea.management.employee.domain.Employee;

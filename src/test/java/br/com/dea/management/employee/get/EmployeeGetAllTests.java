@@ -1,6 +1,6 @@
 package br.com.dea.management.employee.get;
 
-import br.com.dea.management.EmployeeTestUtils;
+import br.com.dea.management.employee.EmployeeTestUtils;
 import br.com.dea.management.employee.repository.EmployeeRepository;
 import br.com.dea.management.position.repository.PositionRepository;
 import lombok.extern.slf4j.Slf4j;
