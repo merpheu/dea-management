@@ -76,7 +76,7 @@ public class AcademyClassController {
     public void createAcademyClass(@Valid @RequestBody CreateClassDto createClassDto) {
         log.info(String.format("Creating academyclass : Payload : %s", createClassDto));
 
-        AcademyClass academy = academyClassService.academyclass(createClassDto);
+        AcademyClass academy = academyClassService.createAcademyclass(createClassDto);
 
         log.info(String.format("Academy class created successfully : id : %s", academy.getId()));
     }

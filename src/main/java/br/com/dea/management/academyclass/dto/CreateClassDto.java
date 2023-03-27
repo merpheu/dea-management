@@ -5,6 +5,7 @@ import br.com.dea.management.academyclass.ClassType;
 import br.com.dea.management.academyclass.domain.AcademyClass;
 import br.com.dea.management.employee.EmployeeType;
 import br.com.dea.management.employee.domain.Employee;
+import br.com.dea.management.employee.dto.EmployeeDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class CreateClassDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private ClassType classType;
-    private Employee instructor_id;
+    private Employee instructor;
 
 
 }

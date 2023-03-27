@@ -28,6 +28,8 @@ public class AcademyClassService {
     private StudentRepository studentRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private PositionRepository positionRepository;
 
     public Page<AcademyClass> findAllAcademyClassPaginated(Integer page, Integer pageSize) {
         return this.academyClassRepository.findAllPaginated(PageRequest.of(page, pageSize, Sort.by("startDate").ascending()));
@@ -38,16 +40,16 @@ public class AcademyClassService {
     }
 
 
-    public AcademyClass academyclass(CreateClassDto createClassDto) {
+    public AcademyClass createAcademyclass(CreateClassDto createClassDto) {
 
-//        Student student = this.studentRepository.findById(createClassDto.get().getId())
-//                .orElseThrow(() -> new NotFoundException(Employee
-//                        .class, createClassDto.getInstructor_id().getId()));
+       Employee employee = employeeRepository.findById(createClassDto.getInstructor().getId())
+             .orElseThrow(() -> new NotFoundException(Employee.class, createClassDto.getInstructor().getId()));
 
-        AcademyClass academyclass = AcademyClass.builder()
+                 AcademyClass academyclass = AcademyClass.builder()
                 .startDate(createClassDto.getStartDate())
                 .endDate(createClassDto.getEndDate())
-                .classType(createClassDto.getClassType())
+                         .instructor(createClassDto.getInstructor())
+                         .classType(createClassDto.getClassType())
                 .build();
 
         return this.academyClassRepository.save(academyclass);
