@@ -82,19 +82,19 @@ public class AcademyClassController {
     }
 
 
-//    @Operation(summary = "Update a class")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Successful operation"),
-//            @ApiResponse(responseCode = "400", description = "Payload not valid"),
-//            @ApiResponse(responseCode = "404", description = "Student not found"),
-//            @ApiResponse(responseCode = "500", description = "Error updating student"),
-//    })
-//    @PutMapping("/academy-class/{classId}")
-//    public void updateAcademyClass(@PathVariable Long id, @Valid @RequestBody CreateClassDto createClassDto) {
-//        log.info(String.format("Updating academyClass : Payload : %s", createClassDto));
-//
-//        AcademyClass academy = academyClassService.academyclass(id);
-//
-//        log.info(String.format("AcademyClass updated successfully : id : %s", academy.getId()));
-//    }
+    @Operation(summary = "Update a class")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "404", description = "Student not found"),
+            @ApiResponse(responseCode = "500", description = "Error updating student"),
+    })
+    @PutMapping("/academy-class/{classId}")
+    public void updateAcademyClass(@PathVariable Long id, @Valid @RequestBody CreateClassDto createClassDto) {
+        log.info(String.format("Updating academyClass : Payload : %s", createClassDto));
+
+        AcademyClass academy = academyClassService.updateAcademyClass(id, createClassDto);
+
+        log.info(String.format("AcademyClass updated successfully : id : %s", academy.getId()));
+    }
 }

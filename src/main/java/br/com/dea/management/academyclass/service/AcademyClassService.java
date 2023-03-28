@@ -5,6 +5,7 @@ import br.com.dea.management.academyclass.dto.CreateClassDto;
 import br.com.dea.management.academyclass.repository.AcademyClassRepository;
 import br.com.dea.management.employee.domain.Employee;
 import br.com.dea.management.employee.dto.CreateEmployeeDto;
+import br.com.dea.management.employee.dto.UpdateEmployeeDto;
 import br.com.dea.management.employee.repository.EmployeeRepository;
 import br.com.dea.management.exceptions.NotFoundException;
 import br.com.dea.management.position.domain.Position;
@@ -12,6 +13,7 @@ import br.com.dea.management.position.repository.PositionRepository;
 import br.com.dea.management.student.domain.Student;
 import br.com.dea.management.student.repository.StudentRepository;
 import br.com.dea.management.user.domain.User;
+import br.com.dea.management.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,8 +30,8 @@ public class AcademyClassService {
     private StudentRepository studentRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
-    @Autowired
-    private PositionRepository positionRepository;
+
+
 
     public Page<AcademyClass> findAllAcademyClassPaginated(Integer page, Integer pageSize) {
         return this.academyClassRepository.findAllPaginated(PageRequest.of(page, pageSize, Sort.by("startDate").ascending()));
@@ -51,8 +53,21 @@ public class AcademyClassService {
                          .instructor(createClassDto.getInstructor())
                          .classType(createClassDto.getClassType())
                 .build();
-
         return this.academyClassRepository.save(academyclass);
 
     }
+    public AcademyClass updateAcademyClass(Long classId, CreateClassDto createClassDto) {
+        AcademyClass acm = this.findAcademyClassById(classId);
+        Employee employee = employeeRepository.findById(createClassDto.getInstructor().getId())
+              .orElseThrow(() -> new NotFoundException(Employee.class, createClassDto.getInstructor().getId()));
+
+        Employee employee1 = acm.getInstructor();
+
+        acm.setEndDate(createClassDto.getEndDate());
+        acm.setStartDate(createClassDto.getStartDate());
+
+        return this.academyClassRepository.save(acm);
+
+    }
+
 }
