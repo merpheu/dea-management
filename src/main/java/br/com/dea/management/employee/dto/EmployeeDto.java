@@ -45,7 +45,7 @@ public class EmployeeDto {
         employeeDto.setLinkedin(employee.getUser().getLinkedin());
         employeeDto.setEmployeeType(employee.getEmployeeType());
 
-       Position position = employee.getPosition();
+        Position position = employee.getPosition();
 
         employeeDto.setPositionDto(new PositionDto(position.getId(), position.getDescription(), position.getSeniority()));
 

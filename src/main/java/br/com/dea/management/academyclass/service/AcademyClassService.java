@@ -4,8 +4,8 @@ import br.com.dea.management.academyclass.domain.AcademyClass;
 import br.com.dea.management.academyclass.dto.CreateClassDto;
 import br.com.dea.management.academyclass.repository.AcademyClassRepository;
 import br.com.dea.management.employee.domain.Employee;
-import br.com.dea.management.employee.dto.CreateEmployeeDto;
-import br.com.dea.management.employee.dto.UpdateEmployeeDto;
+import br.com.dea.management.employee.dto.CreateEmployeeRequestDto;
+import br.com.dea.management.employee.dto.UpdateEmployeeRequestDto;
 import br.com.dea.management.employee.repository.EmployeeRepository;
 import br.com.dea.management.exceptions.NotFoundException;
 import br.com.dea.management.position.domain.Position;
@@ -44,29 +44,29 @@ public class AcademyClassService {
 
     public AcademyClass createAcademyclass(CreateClassDto createClassDto) {
 
-       Employee employee = employeeRepository.findById(createClassDto.getInstructor().getId())
-             .orElseThrow(() -> new NotFoundException(Employee.class, createClassDto.getInstructor().getId()));
+       Employee employee = employeeRepository.findById(createClassDto.getInstructorId())
+             .orElseThrow(() -> new NotFoundException(Employee.class, createClassDto.getInstructorId()));
 
                  AcademyClass academyclass = AcademyClass.builder()
                 .startDate(createClassDto.getStartDate())
                 .endDate(createClassDto.getEndDate())
-                         .instructor(createClassDto.getInstructor())
+                         .instructor(employee)
                          .classType(createClassDto.getClassType())
                 .build();
         return this.academyClassRepository.save(academyclass);
 
     }
-    public AcademyClass updateAcademyClass(Long classId, CreateClassDto createClassDto) {
-        AcademyClass acm = this.findAcademyClassById(classId);
-        Employee employee = employeeRepository.findById(createClassDto.getInstructor().getId())
-              .orElseThrow(() -> new NotFoundException(Employee.class, createClassDto.getInstructor().getId()));
+    public AcademyClass updateAcademyClass (Long classId, CreateClassDto createClassDto) {
+        AcademyClass academyClass = this.findAcademyClassById(classId);
 
-        Employee employee1 = acm.getInstructor();
+        Employee employee = employeeRepository.findById(createClassDto.getInstructorId())
+              .orElseThrow(() -> new NotFoundException(Employee.class, createClassDto.getInstructorId()));
 
-        acm.setEndDate(createClassDto.getEndDate());
-        acm.setStartDate(createClassDto.getStartDate());
-
-        return this.academyClassRepository.save(acm);
+        academyClass.setEndDate(createClassDto.getEndDate());
+        academyClass.setStartDate(createClassDto.getStartDate());
+        academyClass.setInstructor(employee);
+        academyClass.setClassType(createClassDto.getClassType());
+        return this.academyClassRepository.save(academyClass);
 
     }
 

@@ -1,14 +1,11 @@
-package br.com.dea.management.academyclass.get;
+package br.com.dea.management.academyclass.create;
 
 import br.com.dea.management.AcademyTestUtils;
-import br.com.dea.management.academyclass.ClassType;
 import br.com.dea.management.academyclass.domain.AcademyClass;
 import br.com.dea.management.academyclass.repository.AcademyClassRepository;
 import br.com.dea.management.employee.EmployeeTestUtils;
-import br.com.dea.management.employee.EmployeeType;
 import br.com.dea.management.employee.domain.Employee;
 import br.com.dea.management.employee.repository.EmployeeRepository;
-import br.com.dea.management.position.domain.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.Charset;
-import java.time.LocalDate;
-import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,43 +26,50 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class AcademyClassCreationSuccessCaseTests {
+class ClassCreationSuccessCaseTests {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private AcademyClassRepository acmRepository;
-    private AcademyTestUtils academyTestUtils;
+    private AcademyClassRepository academyClassRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private AcademyTestUtils academyClassTestUtils;
+
+    @Autowired
+    private EmployeeTestUtils employeeTestUtils;
 
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     @Test
-    void whenRequestingAcademyCreationWithAValidPayload_thenCreateAcademyClassSuccessfully() throws Exception {
-        this.acmRepository.deleteAll();
+    void whenRequestingAcademyClassCreationWithAValidPayload_thenCreateAAcademyClassSuccessfully() throws Exception {
+        this.academyClassRepository.deleteAll();
+        this.employeeRepository.deleteAll();
 
-        LocalDate startDate = LocalDate.of(2023, Month.JANUARY, 1);
-        LocalDate endDate = LocalDate.of(2024, Month.DECEMBER, 20);
-        this.academyTestUtils.createFakeClass(1, startDate, endDate, ClassType.DEVELOPER);
-
-        //Employee employee = academyTestUtils.createFakeClass(10,startDate,endDate);
+        this.employeeTestUtils.createFakeEmployees(1);
+        Employee employee = this.employeeRepository.findAll().get(0);
 
         String payload = "{" +
-                "\"startDate\": \"2023-03-23\"," +
-                "\"endDate\": \"2023-03-23\"," +
-             //   "\"instructor\": " +employee.getEmployeeType()+
+                "\"startDate\": \"2022-01-01\"," +
+                "\"endDate\": \"2024-01-01\"," +
+                "\"classType\": \"DESIGN\"," +
+                "\"instructorId\": " + employee.getId() +
                 "}";
-        mockMvc.perform(post("/Academy-class")
+        mockMvc.perform(post("/academy-class")
                         .contentType(APPLICATION_JSON_UTF8).content(payload))
                 .andExpect(status().isOk());
 
-        AcademyClass acm = this.acmRepository.findAll().get(0);
+        AcademyClass academyClass = this.academyClassRepository.findAll().get(0);
 
-        assertThat(acm.getEndDate().getDayOfMonth()).isEqualTo("name");
-        assertThat(acm.getStartDate().getDayOfMonth()).isEqualTo("name");
-        assertThat(acm.getClassType()).isEqualTo(ClassType.DEVELOPER);
-
-
+        assertThat(academyClass.getStartDate()).isEqualTo("2022-01-01");
+        assertThat(academyClass.getEndDate()).isEqualTo("2024-01-01");
+        assertThat(academyClass.getClassType().name()).isEqualTo("DESIGN");
+        assertThat(academyClass.getInstructor().getId()).isEqualTo(employee.getId());
     }
+
 }

@@ -5,8 +5,8 @@ import br.com.dea.management.academyclass.dto.AcademyClassDto;
 import br.com.dea.management.academyclass.dto.CreateClassDto;
 import br.com.dea.management.academyclass.service.AcademyClassService;
 import br.com.dea.management.employee.domain.Employee;
-import br.com.dea.management.employee.dto.CreateEmployeeDto;
-import br.com.dea.management.employee.dto.UpdateEmployeeDto;
+import br.com.dea.management.employee.dto.CreateEmployeeRequestDto;
+import br.com.dea.management.employee.dto.UpdateEmployeeRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -89,7 +89,7 @@ public class AcademyClassController {
             @ApiResponse(responseCode = "404", description = "Student not found"),
             @ApiResponse(responseCode = "500", description = "Error updating student"),
     })
-    @PutMapping("/academy-class/{classId}")
+    @PutMapping("/academy-class/{id}")
     public void updateAcademyClass(@PathVariable Long id, @Valid @RequestBody CreateClassDto createClassDto) {
         log.info(String.format("Updating academyClass : Payload : %s", createClassDto));
 

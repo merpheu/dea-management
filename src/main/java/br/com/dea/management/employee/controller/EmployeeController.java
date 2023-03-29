@@ -1,14 +1,10 @@
 package br.com.dea.management.employee.controller;
 
 import br.com.dea.management.employee.domain.Employee;
-import br.com.dea.management.employee.dto.CreateEmployeeDto;
 import br.com.dea.management.employee.dto.EmployeeDto;
-import br.com.dea.management.employee.dto.UpdateEmployeeDto;
-import br.com.dea.management.employee.repository.EmployeeRepository;
 import br.com.dea.management.employee.service.EmployeeService;
-import br.com.dea.management.student.domain.Student;
-import br.com.dea.management.student.dto.CreateStudentRequestDto;
-import br.com.dea.management.student.dto.UpdateStudentRequestDto;
+import br.com.dea.management.employee.dto.CreateEmployeeRequestDto;
+import br.com.dea.management.employee.dto.UpdateEmployeeRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Tag(name = "Employee", description = "The Employee API")
 public class EmployeeController {
-    @Autowired
-    private EmployeeRepository employeeRepository;
 
     @Autowired
     EmployeeService employeeService;
@@ -70,6 +64,37 @@ public class EmployeeController {
 
     }
 
+    @Operation(summary = "Create a new Employee")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "500", description = "Error creating employee"),
+    })
+    @PostMapping("/employee")
+    public void createEmployee(@Valid @RequestBody CreateEmployeeRequestDto createEmployeeRequestDto) {
+        log.info(String.format("Creating Employee : Payload : %s", createEmployeeRequestDto));
+
+        Employee employee = employeeService.createEmployee(createEmployeeRequestDto);
+
+        log.info(String.format("Employee created successfully : id : %s", employee.getId()));
+    }
+
+    @Operation(summary = "Update a Employee")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500", description = "Error updating employee"),
+    })
+    @PutMapping("/employee/{employeeId}")
+    public void updateEmployee(@PathVariable Long employeeId, @Valid @RequestBody UpdateEmployeeRequestDto updateEmployeeRequestDto) {
+        log.info(String.format("Updating Employee : Payload : %s", updateEmployeeRequestDto));
+
+        Employee employee = employeeService.updateEmployee(employeeId, updateEmployeeRequestDto);
+
+        log.info(String.format("Employee updated successfully : id : %s", employee.getId()));
+    }
+
     @Operation(summary = "Delete a Employee")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
@@ -85,36 +110,5 @@ public class EmployeeController {
 
         log.info(String.format("Employee removed successfully : id : %s", employeeId));
     }
-
-    @Operation(summary = "Create a new employee")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation"),
-            @ApiResponse(responseCode = "400", description = "Payload not valid"),
-            @ApiResponse(responseCode = "500", description = "Error creating employee"),
-    })
-    @PostMapping("/employee")
-    public void createEmployee(@Valid @RequestBody CreateEmployeeDto createEmployeeDto) {
-        log.info(String.format("Creating employee : Payload : %s", createEmployeeDto));
-
-        Employee employee = employeeService.createEmployee(createEmployeeDto);
-
-        log.info(String.format("Employee created successfully : id : %s", employee.getId()));
-    }
-    @Operation(summary = "Update a employee")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful operation"),
-            @ApiResponse(responseCode = "400", description = "Payload not valid"),
-            @ApiResponse(responseCode = "404", description = "Student not found"),
-            @ApiResponse(responseCode = "500", description = "Error updating student"),
-    })
-    @PutMapping("/employee/{employeeId}")
-    public void updateEmployee(@PathVariable Long employeeId, @Valid @RequestBody UpdateEmployeeDto updateEmployeeDto) {
-        log.info(String.format("Updating employee : Payload : %s", updateEmployeeDto));
-
-        Employee employee = employeeService.updateEmployee(employeeId, updateEmployeeDto);
-
-        log.info(String.format("Employee updated successfully : id : %s", employee.getId()));
-    }
-
 
 }

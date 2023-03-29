@@ -1,13 +1,8 @@
 package br.com.dea.management.employee.dto;
 
-
 import br.com.dea.management.employee.EmployeeType;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,21 +10,21 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CreateEmployeeDto {
+public class UpdateEmployeeRequestDto {
 
+    @NotNull(message = "Name could not be null")
     private String name;
 
     @NotNull(message = "Email could not be null")
-    @Email(message = "Email must be valid")
     private String email;
 
-    @NotEmpty(message = "Linkedin must not be empty")
     private String linkedin;
-
-    private String password;
 
     private EmployeeType employeeType;
 
     private Long position;
+
+    @NotNull(message = "Password could not be null")
+    private String password;
 
 }

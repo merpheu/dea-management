@@ -22,10 +22,20 @@ import java.util.Date;
 @ToString
 public class CreateClassDto {
 
+    @NotNull(message = "Start Date could not be null")
     private LocalDate startDate;
-    private LocalDate endDate;
-    private ClassType classType;
-    private Employee instructor;
 
+    @NotNull(message = "End Date could not be null")
+    private LocalDate endDate;
+
+    @NotNull(message = "Class Type could not be null")
+    private ClassType classType;
+
+    @NotNull(message = "Instructor Id could not be null")
+    private Long instructorId;
 
 }
+
+
+
+
