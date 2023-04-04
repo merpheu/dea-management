@@ -65,5 +65,10 @@ public class ProjectService {
 
     }
 
+    public void deleteProject(Long projectId) {
+        Project project = this.findProjectById(projectId);
+        this.projectRepository.delete(project);
+    }
+
 
 }

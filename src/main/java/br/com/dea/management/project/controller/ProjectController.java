@@ -70,6 +70,21 @@ import org.springframework.web.bind.annotation.*;
 
         }
 
+    @Operation(summary = "Delete a projects")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "404", description = "project not found"),
+            @ApiResponse(responseCode = "500", description = "Error deleting project"),
+    })
+    @DeleteMapping("/project/{projectId}")
+    public void deleteProject(@PathVariable Long projectId) {
+        log.info(String.format("Removing project : Id : %s", projectId));
+
+        projectService.deleteProject(projectId);
+
+        log.info(String.format("Employee removed successfully : id : %s", projectId));
+    }
 
     @Operation(summary = "Create a new project")
     @ApiResponses(value = {
