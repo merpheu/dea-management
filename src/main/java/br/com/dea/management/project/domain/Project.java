@@ -25,7 +25,7 @@ public class Project {
     private Long id;
 
     @Column
-    private String nome;
+    private String name;
 
     @Column
     private String client;
@@ -40,8 +40,8 @@ public class Project {
     private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @JoinColumn(name = "employee_col_id")
+    private Employee employeeType;
 
 
 

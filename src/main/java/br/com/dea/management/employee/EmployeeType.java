@@ -6,6 +6,8 @@ public enum EmployeeType {
     RESIDENT,
     DESIGNER,
     QA_ANALYST,
+    PO,
+    SM,
     ADMINISTRATIVE,
     PL,
     DTL
