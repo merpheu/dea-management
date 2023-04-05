@@ -58,7 +58,8 @@ public class ProjectService {
                 .endDate(projectDto.getEndDate())
                 .client(projectDto.getClient())
                 .pm_external(projectDto.getPm_external())
-                .employeeType(employee)
+                .employee(employee)
+
                 .build();
 
         return this.projectRepository.save(project1);

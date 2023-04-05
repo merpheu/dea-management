@@ -2,6 +2,7 @@ package br.com.dea.management.project.dto;
 
 
 import br.com.dea.management.employee.domain.Employee;
+import br.com.dea.management.employee.dto.EmployeeDto;
 import br.com.dea.management.project.domain.Project;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -27,7 +28,8 @@ public class ProjectDto {
     private String pm_external;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Employee employee;
+    private EmployeeDto employee;
+
 
 
     public static List<ProjectDto> fromProject (List<Project> projects) {
@@ -46,7 +48,9 @@ public class ProjectDto {
         projectDto.setEndDate(project.getEndDate());
         projectDto.setStartDate(project.getStartDate());
         projectDto.setPm_external(project.getPm_external());
-        projectDto.setEmployee(project.getEmployeeType());
+        projectDto.setEmployee(EmployeeDto.fromEmployee(project.getEmployee()));
+//        projectDto.setPO(EmployeeDto.fromEmployee(project.getPO()));
+//        projectDto.setSM(EmployeeDto.fromEmployee(project.getSM()));
 
         return projectDto;
     }

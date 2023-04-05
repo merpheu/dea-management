@@ -41,7 +41,18 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name = "employee_col_id")
-    private Employee employeeType;
+    private Employee employee;
+
+//    @ManyToOne
+//    @JoinColumn(name = "employee_col_id")
+//    private Employee PO;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "employee_col_id")
+//    private Employee SM;
+
+
+
 
 
 
