@@ -2,6 +2,7 @@ package br.com.dea.management.project.dto;
 
 import br.com.dea.management.employee.EmployeeType;
 import br.com.dea.management.employee.domain.Employee;
+import br.com.dea.management.members.domain.Members;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +31,8 @@ public class CreateProjectDto
     @NotNull(message = "end_date could not be null")
     private LocalDate endDate;
 
-    private Employee employee;
+    private String po;
+    private String sm;
 
 
 

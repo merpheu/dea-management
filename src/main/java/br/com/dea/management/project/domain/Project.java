@@ -2,6 +2,8 @@ package br.com.dea.management.project.domain;
 
 import br.com.dea.management.employee.EmployeeType;
 import br.com.dea.management.employee.domain.Employee;
+import br.com.dea.management.members.domain.Members;
+import br.com.dea.management.members.dto.MemberDto;
 import br.com.dea.management.position.domain.Position;
 import br.com.dea.management.user.domain.User;
 import jakarta.persistence.*;
@@ -25,10 +27,10 @@ public class Project {
     private Long id;
 
     @Column
-    private String name;
+    private String project_name;
 
     @Column
-    private String client;
+    private String project_client;
 
     @Column
     private String pm_external;
@@ -39,17 +41,12 @@ public class Project {
     @Column
     private LocalDate endDate;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_col_id")
-    private Employee employee;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+    private Employee employee_id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "employee_col_id")
-//    private Employee PO;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "employee_col_id")
-//    private Employee SM;
+
+
 
 
 

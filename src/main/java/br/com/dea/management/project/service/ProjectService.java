@@ -3,8 +3,15 @@ package br.com.dea.management.project.service;
 import br.com.dea.management.academyclass.domain.AcademyClass;
 import br.com.dea.management.academyclass.dto.CreateClassDto;
 import br.com.dea.management.employee.domain.Employee;
+import br.com.dea.management.employee.dto.EmployeeDto;
 import br.com.dea.management.employee.repository.EmployeeRepository;
 import br.com.dea.management.exceptions.NotFoundException;
+import br.com.dea.management.members.domain.Members;
+import br.com.dea.management.members.dto.MemberDto;
+import br.com.dea.management.members.repository.MembersRepository;
+import br.com.dea.management.position.domain.Position;
+import br.com.dea.management.position.dto.PositionDto;
+import br.com.dea.management.position.repository.PositionRepository;
 import br.com.dea.management.project.domain.Project;
 import br.com.dea.management.project.dto.CreateProjectDto;
 import br.com.dea.management.project.dto.ProjectDto;
@@ -29,9 +36,12 @@ public class ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
-    private ProjectService projectService;
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private MembersRepository membersRepository;
+    @Autowired
+    private PositionRepository positionRepository;
 
     public List<Project> findAllProjects() {
         return this.projectRepository.findAll();
@@ -48,18 +58,19 @@ public class ProjectService {
 
     public Project createproject(ProjectDto projectDto) {
 
+     //  Project project = projectRepository.findById(projectid).orElseThrow()
+
         Employee employee = employeeRepository.findById(projectDto.getId())
                 .orElseThrow(() -> new NotFoundException(Employee.class, projectDto.getId()));
 
         Project project1 = Project.builder()
 
-                .name(projectDto.getName())
-                .startDate(projectDto.getStartDate())
-                .endDate(projectDto.getEndDate())
-                .client(projectDto.getClient())
+                .project_name(projectDto.getProject_name())
+                .startDate(projectDto.getStart_Date())
+                .endDate(projectDto.getEnd_Date())
+                .project_client(projectDto.getProject_client())
                 .pm_external(projectDto.getPm_external())
-                .employee(employee)
-
+                .employee_id(employee)
                 .build();
 
         return this.projectRepository.save(project1);
@@ -70,6 +81,5 @@ public class ProjectService {
         Project project = this.findProjectById(projectId);
         this.projectRepository.delete(project);
     }
-
 
 }

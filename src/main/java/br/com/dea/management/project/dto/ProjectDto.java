@@ -3,6 +3,10 @@ package br.com.dea.management.project.dto;
 
 import br.com.dea.management.employee.domain.Employee;
 import br.com.dea.management.employee.dto.EmployeeDto;
+import br.com.dea.management.members.domain.Members;
+import br.com.dea.management.members.dto.MemberDto;
+import br.com.dea.management.position.domain.Position;
+import br.com.dea.management.position.dto.PositionDto;
 import br.com.dea.management.project.domain.Project;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -23,13 +27,13 @@ public class ProjectDto {
 
 
     private Long id;
-    private String name;
-    private String client;
+    private String project_name;
+    private String project_client;
     private String pm_external;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private EmployeeDto employee;
-
+    private LocalDate start_Date;
+    private LocalDate end_Date;
+    private EmployeeDto PO;
+    private EmployeeDto SM;
 
 
     public static List<ProjectDto> fromProject (List<Project> projects) {
@@ -43,15 +47,13 @@ public class ProjectDto {
     public static ProjectDto fromProject(Project project) {
        ProjectDto projectDto = new ProjectDto();
         projectDto.setId(project.getId());
-        projectDto.setName(project.getName());
-        projectDto.setClient(project.getClient());
-        projectDto.setEndDate(project.getEndDate());
-        projectDto.setStartDate(project.getStartDate());
+        projectDto.setProject_name(project.getProject_name());
+        projectDto.setProject_client(project.getProject_client());
+        projectDto.setStart_Date(project.getStartDate());
+        projectDto.setEnd_Date(project.getEndDate());
         projectDto.setPm_external(project.getPm_external());
-        projectDto.setEmployee(EmployeeDto.fromEmployee(project.getEmployee()));
-//        projectDto.setPO(EmployeeDto.fromEmployee(project.getPO()));
-//        projectDto.setSM(EmployeeDto.fromEmployee(project.getSM()));
-
+        projectDto.setPO(EmployeeDto.fromEmployee(project.getEmployee_id()));
+        projectDto.setSM(EmployeeDto.fromEmployee(project.getEmployee_id()));
         return projectDto;
     }
 }
