@@ -2,10 +2,12 @@ package br.com.dea.management.project.controller;
 
 
 import br.com.dea.management.academyclass.domain.AcademyClass;
+import br.com.dea.management.academyclass.dto.CreateClassDto;
 import br.com.dea.management.academyclass.service.AcademyClassService;
 import br.com.dea.management.employee.dto.EmployeeDto;
 
 import br.com.dea.management.project.domain.Project;
+import br.com.dea.management.project.dto.CreateProjectDto;
 import br.com.dea.management.project.dto.ProjectDto;
 import br.com.dea.management.project.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,50 +27,50 @@ import org.springframework.web.bind.annotation.*;
 
     public class ProjectController {
 
-        @Autowired
-        ProjectService projectService;
-        AcademyClassService academyClassService;
+    @Autowired
+    ProjectService projectService;
+    AcademyClassService academyClassService;
 
-        @Operation(summary = "Load the list of projects paginated.")
-        @ApiResponses(value = {
-                @ApiResponse(responseCode = "200", description = "Successful operation"),
-                @ApiResponse(responseCode = "400", description = "Page or Page Size params not valid"),
-                @ApiResponse(responseCode = "500", description = "Error fetching project list"),
-        })
-        @GetMapping("/project")
-        public Page<ProjectDto> getProjects(@RequestParam(required = true) Integer page,
-                                             @RequestParam(required = true) Integer pageSize) {
+    @Operation(summary = "Load the list of projects paginated.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Page or Page Size params not valid"),
+            @ApiResponse(responseCode = "500", description = "Error fetching project list"),
+    })
+    @GetMapping("/project")
+    public Page<ProjectDto> getProjects(@RequestParam(required = true) Integer page,
+                                        @RequestParam(required = true) Integer pageSize) {
 
-            log.info(String.format("Fetching projects : page : %s : pageSize", page, pageSize));
+        log.info(String.format("Fetching projects : page : %s : pageSize", page, pageSize));
 
-            Page<Project> projectsPaged = this.projectService.findAllProjectsPaginated(page, pageSize);
-            Page<ProjectDto> projects = projectsPaged.map(project -> ProjectDto.fromProject(project));
+        Page<Project> projectsPaged = this.projectService.findAllProjectsPaginated(page, pageSize);
+        Page<ProjectDto> projects = projectsPaged.map(project -> ProjectDto.fromProject(project));
 
-            log.info(String.format("projects loaded successfully : projects : %s : pageSize", projects.getContent()));
+        log.info(String.format("projects loaded successfully : projects : %s : pageSize", projects.getContent()));
 
-            return projects;
+        return projects;
 
-        }
+    }
 
-        @Operation(summary = "Load the project by ID.")
-        @ApiResponses(value = {
-                @ApiResponse(responseCode = "200", description = "Successful operation"),
-                @ApiResponse(responseCode = "400", description = "Project Id invalid"),
-                @ApiResponse(responseCode = "404", description = "Project Not found"),
-                @ApiResponse(responseCode = "500", description = "Error fetching project list"),
-        })
-        @GetMapping("/project/{id}")
-        public ProjectDto getProjects(@PathVariable Long id) {
+    @Operation(summary = "Load the project by ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Project Id invalid"),
+            @ApiResponse(responseCode = "404", description = "Project Not found"),
+            @ApiResponse(responseCode = "500", description = "Error fetching project list"),
+    })
+    @GetMapping("/project/{id}")
+    public ProjectDto getProjects(@PathVariable Long id) {
 
-            log.info(String.format("Fetching projects by id : Id : %s", id));
+        log.info(String.format("Fetching projects by id : Id : %s", id));
 
-           ProjectDto project = ProjectDto.fromProject(this.projectService.findProjectById(id));
+        ProjectDto project = ProjectDto.fromProject(this.projectService.findProjectById(id));
 
-            log.info(String.format("Project loaded successfully : Projects : %s", project));
+        log.info(String.format("Project loaded successfully : Projects : %s", project));
 
-            return project;
+        return project;
 
-        }
+    }
 
     @Operation(summary = "Delete a projects")
     @ApiResponses(value = {
@@ -77,6 +79,7 @@ import org.springframework.web.bind.annotation.*;
             @ApiResponse(responseCode = "404", description = "project not found"),
             @ApiResponse(responseCode = "500", description = "Error deleting project"),
     })
+
     @DeleteMapping("/project/{projectId}")
     public void deleteProject(@PathVariable Long projectId) {
         log.info(String.format("Removing project : Id : %s", projectId));
@@ -86,20 +89,36 @@ import org.springframework.web.bind.annotation.*;
         log.info(String.format("Employee removed successfully : id : %s", projectId));
     }
 
-    @Operation(summary = "Create a new project")
+    @Operation(summary = "Create project")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "400", description = "Payload not valid"),
             @ApiResponse(responseCode = "500", description = "Error creating project"),
     })
-
     @PostMapping("/projects")
-    public void createproject(@Valid @RequestBody ProjectDto projectDto) {
-        log.info(String.format("Creating project : Payload : %s", projectDto));
+    public void createproject(@Valid @RequestBody CreateProjectDto createProjectDto) {
+        log.info(String.format("Creating project : Payload : %s", createProjectDto));
 
-       Project project  = projectService.createproject(projectDto);
+       Project project  = projectService.createproject(createProjectDto);
 
         log.info(String.format("Project created successfully : id : %s", project.getId()));
     }
+
+    @Operation(summary = "Update project")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "404", description = "Student not found"),
+            @ApiResponse(responseCode = "500", description = "Error updating project"),
+    })
+    @PutMapping("/project/{id}")
+    public void updateProject(@PathVariable Long id, @Valid @RequestBody CreateProjectDto createProjectDto) {
+        log.info(String.format("Updating project : Payload : %s", createProjectDto));
+
+        Project project = projectService.updateProject(id,createProjectDto);
+
+        log.info(String.format("Project updated successfully : id : %s", project.getId()));
+    }
+
 
 }

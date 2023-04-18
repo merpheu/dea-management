@@ -8,6 +8,7 @@ import br.com.dea.management.members.dto.MemberDto;
 import br.com.dea.management.position.domain.Position;
 import br.com.dea.management.position.dto.PositionDto;
 import br.com.dea.management.project.domain.Project;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -32,6 +33,7 @@ public class ProjectDto {
     private String pm_external;
     private LocalDate start_Date;
     private LocalDate end_Date;
+
     private EmployeeDto PO;
     private EmployeeDto SM;
 
@@ -54,6 +56,11 @@ public class ProjectDto {
         projectDto.setPm_external(project.getPm_external());
         projectDto.setPO(EmployeeDto.fromEmployee(project.getEmployee_id()));
         projectDto.setSM(EmployeeDto.fromEmployee(project.getEmployee_id()));
+
+//        Employee employee = project.getEmployee_id();
+//        projectDto.setPO(EmployeeDto.fromEmployee(employee));
+//        projectDto.setSM(EmployeeDto.fromEmployee(employee));
+
         return projectDto;
     }
 }

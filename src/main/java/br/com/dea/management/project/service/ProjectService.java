@@ -56,24 +56,48 @@ public class ProjectService {
     }
 
 
-    public Project createproject(ProjectDto projectDto) {
+    public Project createproject(CreateProjectDto createProjectDto) {
 
-     //  Project project = projectRepository.findById(projectid).orElseThrow()
+        Employee employeePO = employeeRepository.findById(createProjectDto.getPo().getId())
+                .orElseThrow(() -> new NotFoundException(Employee.class, createProjectDto.getPo().getId()));
 
-        Employee employee = employeeRepository.findById(projectDto.getId())
-                .orElseThrow(() -> new NotFoundException(Employee.class, projectDto.getId()));
+        Employee employeeSM = employeeRepository.findById(createProjectDto.getSm().getId())
+                .orElseThrow(() -> new NotFoundException(Employee.class, createProjectDto.getSm().getId()));
 
         Project project1 = Project.builder()
 
-                .project_name(projectDto.getProject_name())
-                .startDate(projectDto.getStart_Date())
-                .endDate(projectDto.getEnd_Date())
-                .project_client(projectDto.getProject_client())
-                .pm_external(projectDto.getPm_external())
-                .employee_id(employee)
+                .project_name(createProjectDto.getProject_name())
+                .startDate(createProjectDto.getStart_Date())
+                .endDate(createProjectDto.getEnd_Date())
+                .project_client(createProjectDto.getProject_client())
+                .pm_external(createProjectDto.getPm_external())
+                .employee_id(employeePO)
+                .employee_id(employeeSM)
                 .build();
 
         return this.projectRepository.save(project1);
+
+    }
+
+    public Project updateProject (Long ProjId, CreateProjectDto createProjectDto) {
+        Project project = this.findProjectById(ProjId);
+
+        Employee employeePO = employeeRepository.findById(createProjectDto.getPo().getId())
+                .orElseThrow(() -> new NotFoundException(Employee.class, createProjectDto.getPo().getId()));
+
+        Employee employeeSM = employeeRepository.findById(createProjectDto.getSm().getId())
+                .orElseThrow(() -> new NotFoundException(Employee.class, createProjectDto.getSm().getId()));
+
+
+        createProjectDto.setEnd_Date(createProjectDto.getEnd_Date());
+        createProjectDto.setStart_Date(createProjectDto.getStart_Date());
+        createProjectDto.setProject_client(createProjectDto.getProject_client());
+        createProjectDto.setPm_external(createProjectDto.getPm_external());
+        createProjectDto.setProject_name(createProjectDto.getProject_name());
+        createProjectDto.setSm(employeeSM);
+        createProjectDto.setPo(employeePO);
+
+        return this.projectRepository.save(project);
 
     }
 

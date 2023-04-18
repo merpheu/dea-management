@@ -43,6 +43,7 @@ public class Project {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
+
     private Employee employee_id;
 
 
