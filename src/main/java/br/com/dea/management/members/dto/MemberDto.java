@@ -11,7 +11,7 @@ import lombok.*;
 public class MemberDto {
 
         private Long id;
-        private ProjectDto project_id;
-        private EmployeeDto employee_id;
+        private ProjectDto projectId;
+        private EmployeeDto employeeId;
 }
 

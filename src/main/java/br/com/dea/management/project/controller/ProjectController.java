@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
     @Autowired
     ProjectService projectService;
-    AcademyClassService academyClassService;
+
 
     @Operation(summary = "Load the list of projects paginated.")
     @ApiResponses(value = {
@@ -95,7 +95,7 @@ import org.springframework.web.bind.annotation.*;
             @ApiResponse(responseCode = "400", description = "Payload not valid"),
             @ApiResponse(responseCode = "500", description = "Error creating project"),
     })
-    @PostMapping("/projects")
+    @PostMapping("/project")
     public void createproject(@Valid @RequestBody CreateProjectDto createProjectDto) {
         log.info(String.format("Creating project : Payload : %s", createProjectDto));
 

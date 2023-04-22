@@ -28,14 +28,14 @@ public class ProjectDto {
 
 
     private Long id;
-    private String project_name;
-    private String project_client;
-    private String pm_external;
+    private String name;
+    private String client;
+    private String externalPm;
     private LocalDate start_Date;
     private LocalDate end_Date;
 
-    private EmployeeDto PO;
-    private EmployeeDto SM;
+    private EmployeeDto po;
+    private EmployeeDto sm;
 
 
     public static List<ProjectDto> fromProject (List<Project> projects) {
@@ -45,21 +45,17 @@ public class ProjectDto {
         }).collect(Collectors.toList());
     }
 
-
     public static ProjectDto fromProject(Project project) {
        ProjectDto projectDto = new ProjectDto();
         projectDto.setId(project.getId());
-        projectDto.setProject_name(project.getProject_name());
-        projectDto.setProject_client(project.getProject_client());
+        projectDto.setName(project.getName());
+        projectDto.setClient(project.getClient());
         projectDto.setStart_Date(project.getStartDate());
         projectDto.setEnd_Date(project.getEndDate());
-        projectDto.setPm_external(project.getPm_external());
-        projectDto.setPO(EmployeeDto.fromEmployee(project.getEmployee_id()));
-        projectDto.setSM(EmployeeDto.fromEmployee(project.getEmployee_id()));
+        projectDto.setExternalPm(project.getExternalPm());
 
-//        Employee employee = project.getEmployee_id();
-//        projectDto.setPO(EmployeeDto.fromEmployee(employee));
-//        projectDto.setSM(EmployeeDto.fromEmployee(employee));
+        projectDto.setPo(EmployeeDto.fromEmployee(project.getPo()));
+        projectDto.setSm(EmployeeDto.fromEmployee(project.getSm()));
 
         return projectDto;
     }

@@ -27,13 +27,13 @@ public class Project {
     private Long id;
 
     @Column
-    private String project_name;
+    private String name;
 
     @Column
-    private String project_client;
+    private String client;
 
     @Column
-    private String pm_external;
+    private String externalPm;
 
     @Column
     private LocalDate startDate;
@@ -42,12 +42,13 @@ public class Project {
     private LocalDate endDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
-
-    private Employee employee_id;
-
+    @JoinColumn(name = "po")
+    private Employee po;
 
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sm")
+    private Employee sm;
 
 
 
