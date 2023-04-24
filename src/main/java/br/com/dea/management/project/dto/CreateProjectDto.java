@@ -19,17 +19,18 @@ public class CreateProjectDto
 {
 
     @NotNull(message = "Name could not be null")
-
     private String name;
 
+    @NotNull(message = "Client could not be null")
     private String client;
 
-    private String pm_external;
+    @NotNull(message = "ExternalPm could not be null")
+    private String externalPm;
 
-    @NotNull(message = "start_date could not be null")
+    @NotNull(message = "Start date could not be null")
     private LocalDate startDate;
 
-    @NotNull(message = "end_date could not be null")
+    @NotNull(message = "End date could not be null")
     private LocalDate endDate;
 
     @NotNull(message = "PO could not be null")

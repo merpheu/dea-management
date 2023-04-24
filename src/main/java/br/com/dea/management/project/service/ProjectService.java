@@ -67,7 +67,7 @@ public class ProjectService {
                 .startDate(createProjectDto.getStartDate())
                 .endDate(createProjectDto.getEndDate())
                 .client(createProjectDto.getClient())
-                .externalPm(createProjectDto.getPm_external())
+                .externalPm(createProjectDto.getExternalPm())
                 .po(employeePO)
                 .sm(employeeSM)
                 .build();
@@ -89,7 +89,7 @@ public class ProjectService {
         project.setEndDate(createProjectDto.getEndDate());
         project.setStartDate(createProjectDto.getStartDate());
         project.setClient(createProjectDto.getClient());
-        project.setExternalPm(createProjectDto.getPm_external());
+        project.setExternalPm(createProjectDto.getExternalPm());
         project.setName(createProjectDto.getName());
         project.setSm(ePO);
         project.setPo(ePO);

@@ -63,17 +63,17 @@ class ProjectUpdatePayloadValidationTests {
                 .andExpect(jsonPath("$.details").isArray())
                 .andExpect(jsonPath("$.details", hasSize(7)))
                 .andExpect(jsonPath("$.details[*].field", hasItem("startDate")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Start Date could not be null")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Start date could not be null")))
                 .andExpect(jsonPath("$.details[*].field", hasItem("endDate")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("End Date could not be null")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("End date could not be null")))
                 .andExpect(jsonPath("$.details[*].field", hasItem("name")))
                 .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Name could not be null")))
-                .andExpect(jsonPath("$.details[*].field", hasItem("externalProductManager")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("External Product Manager could not be null")))
-                .andExpect(jsonPath("$.details[*].field", hasItem("productOwnerId")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Product Owner could not be null")))
-                .andExpect(jsonPath("$.details[*].field", hasItem("scrumMasterId")))
-                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Scrum Master could not be null")))
+                .andExpect(jsonPath("$.details[*].field", hasItem("externalPm")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("ExternalPm could not be null")))
+                .andExpect(jsonPath("$.details[*].field", hasItem("po")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("PO could not be null")))
+                .andExpect(jsonPath("$.details[*].field", hasItem("sm")))
+                .andExpect(jsonPath("$.details[*].errorMessage", hasItem("SM could not be null")))
                 .andExpect(jsonPath("$.details[*].field", hasItem("client")))
                 .andExpect(jsonPath("$.details[*].errorMessage", hasItem("Client could not be null")));
 
@@ -125,9 +125,9 @@ class ProjectUpdatePayloadValidationTests {
                 "\"endDate\": \"2024-01-01\"," +
                 "\"name\": \"name\"," +
                 "\"client\": \"client\"," +
-                "\"externalProductManager\": \"manager\"," +
-                "\"productOwnerId\": " + employee.getId() + "," +
-                "\"scrumMasterId\": 200000" +
+                "\"externalPm\": \"manager\"," +
+                "\"po\": " + employee.getId() + "," +
+                "\"sm\": 200000" +
                 "}";
         mockMvc.perform(put("/project/" + project.getId())
                         .contentType(APPLICATION_JSON_UTF8).content(payload))

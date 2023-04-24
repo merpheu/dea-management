@@ -75,9 +75,9 @@ public class ProjectGetAllTests {
                 .andExpect(jsonPath("$.content[0].endDate").exists())
                 .andExpect(jsonPath("$.content[0].name", is("name 0")))
                 .andExpect(jsonPath("$.content[0].client", is("client 0")))
-                .andExpect(jsonPath("$.content[0].externalProductManager", is("manager 0")))
-                .andExpect(jsonPath("$.content[0].productOwner.name", is("name 1")))
-                .andExpect(jsonPath("$.content[0].scrumMaster.name", is("name 0")));
+                .andExpect(jsonPath("$.content[0].externalPm", is("manager 0")))
+                .andExpect(jsonPath("$.content[0].po.name", is("name 1")))
+                .andExpect(jsonPath("$.content[0].sm.name", is("name 0")));
 
     }
 

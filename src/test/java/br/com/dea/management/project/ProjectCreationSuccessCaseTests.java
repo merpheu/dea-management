@@ -65,7 +65,7 @@ class ProjectCreationSuccessCaseTests {
                 "\"endDate\": \"2024-01-01\"," +
                 "\"name\": \"name\"," +
                 "\"client\": \"client\"," +
-                "\"externalProductManager\": \"manager\"," +
+                "\"externalPm\": \"manager\"," +
                 "\"sm\": " + scrumMaster.getId() + "," +
                 "\"po\":" + productOwner.getId() +
                 "}";
